@@ -1,0 +1,26 @@
+{
+  "status": "exposure and white balance re-measured in daylight for P3 (night values: 300/96/2900/1.141/1.204); hfov measured; re-run camera_cal exposure at the venue",
+  "values": {
+    "width": 640,
+    "height": 480,
+    "fps": 30,
+    "exposure_time_absolute": 100,
+    "gain": 32,
+    "white_balance_temperature": 2900,
+    "wb_gain_r": 1.055,
+    "wb_gain_b": 1.063,
+    "power_line_frequency": 1,
+    "hfov_deg": 43.1
+  },
+  "sources": {
+    "width": "HANDOFF \u00a79: MJPG 640x480 on the C310",
+    "fps": "C310 lists 30 and 25 fps at 640x480 MJPG; 27.98 fps measured at exposure 300",
+    "exposure_time_absolute": "10 ms (flicker-free at 50 Hz), lowest gain reaching luma 100-140 without clipping; P3 daylight camera_cal, prior-work/evidence/P3/camera_exposure_daylight.json",
+    "gain": "with exposure 100: luma 110, 300-frame range 102-111; P3 daylight camera_cal, prior-work/evidence/P3/camera_exposure_daylight.json",
+    "white_balance_temperature": "closest manual temperature to the camera's own auto white balance; P3 daylight camera_cal, prior-work/evidence/P3/camera_exposure_daylight.json",
+    "wb_gain_r": "auto-WB R/G divided by R/G at 2900 K; P3 daylight camera_cal, prior-work/evidence/P3/camera_exposure_daylight.json",
+    "wb_gain_b": "auto-WB B/G divided by B/G at 2900 K; P3 daylight camera_cal, prior-work/evidence/P3/camera_exposure_daylight.json",
+    "power_line_frequency": "HANDOFF \u00a79: 50 Hz mains (menu value 1); the driver default was 60 Hz",
+    "hfov_deg": "two wall marks 30 cm apart (operator, approx; +-1 cm = +-1.4 deg) at 100 cm (sonar 101.6 cm): 243 px apart, f 810 px; cross-checks: ~40 deg from a turn pair, 41.3 deg from the C310 spec; prior-work/evidence/P2/camera_hfov.json"
+  }
+}

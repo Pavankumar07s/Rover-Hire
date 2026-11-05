@@ -1,0 +1,76 @@
+{
+  "status": "suite 2026-11-04 home (S3, S6) + venue S4 by hand (kick 75, cruise 45, cruise_mm_s 460, roll_ms 272) + S6 (turn_pct 90)",
+  "values": {
+    "cruise_pct": 45,
+    "cruise_mm_s": 460,
+    "batt_mv": 0,
+    "kick_pct": 75,
+    "kick_ms": 200,
+    "floor_pct": 25,
+    "turn_pct": 90,
+    "kp_x10": 0,
+    "brake_ms": 100,
+    "mm_per_edge_x100": 516,
+    "turn_kick_pct": 100,
+    "stall_cdps": 1000,
+    "stall_ms": 400,
+    "drive_lag_ms": 40,
+    "roll_ms": 272,
+    "turn_brake_k_x1000": 69,
+    "turn_brake_q_div": 5000000,
+    "reflex_base_mm": 120,
+    "sonar_offset_mm": -18,
+    "trim_pct": 0
+  },
+  "sources": {
+    "cruise_pct": "raised by hand at the venue (straight drives lacked power); was 38; cruise_mm_s re-measured by S4 right after",
+    "cruise_mm_s": "S4 at the venue at kick 75 / cruise 45: steady 87.7 edges/s (kp 1.5, median of 106.4/87.7/78.3) x 5.25 mm/edge = 460 mm/s; was 475. Saved by hand: S4 failed only its back-off check (drive_cm(-20) went 159 mm)",
+    "batt_mv": "unmeasured: 0 disables battery compensation",
+    "kick_pct": "raised by hand at the venue (straight drives lacked power); was 60",
+    "kick_ms": "P6: 100 ms (P1) left 3 of 14 mission drives straining in place (frames and sonar unchanged after a 'done' 50 cm drive; motors audibly roaring); 200 ms breaks the stiff rear-right wheel free more reliably",
+    "floor_pct": "suite at home, S3 floor grip: a drive keeps rolling down to 20 % + 5 (restored from the suite's own S3 record after a deploy overwrote it)",
+    "turn_pct": "raised by hand at the venue (turns stalled and skidded, then waited for the retries); was 80; turn coast re-measured by S6 right after",
+    "kp_x10": "P1 drives: heading hold off. kp 1.5/3.0 overshot to ~66 cm because cruise = floor = 38 % lets a correction only speed a side up; drift with it off is under 3.3 deg per 50 cm",
+    "brake_ms": "firmware default",
+    "mm_per_edge_x100": "encoders on both front wheels (disc of 20 holes = 40 edges per wheel turn); six legs toward a wall (+30/-30/+50/-50/+80/-80 cm, time-based) measured by Pavan's scale 250/250/420/-/770/- mm over 48/48/82.5/-/149/- mean edges = 5.16 mm per edge (1690 mm / 327.5 edges); the sonar gave 4.98-5.13. Pavan chose encoder distance : above 0 the firmware measures drives by the encoders (rover_mcu.ino:139) instead of time x cruise_mm_s, which landed 7-19 % short (heavier rover). The Phase 10A encoder stall guard (no edges for 400 ms while driving -> stop) is not built yet",
+    "turn_kick_pct": "suite at home, S3 floor grip: 100: a lower kick left turns humming in place (restored from the suite's own S3 record after a deploy overwrote it)",
+    "stall_cdps": "a turn still under this rate stall_ms after its kick stops as a stall (a live run: no more 12 s humming)",
+    "stall_ms": "see stall_cdps",
+    "drive_lag_ms": "start-up time a time-based drive adds before counting distance at cruise_mm_s (set_cal2); 0 = counted from the first moment. Bare rubber, dry tiles: 40 (fitted from 30 and 50 cm sonar-measured legs)",
+    "roll_ms": "S4 at the venue: drive_cm(30) went 343/316/289 mm as roll_ms went 208/208/272; 272 lands within 4 %; was 208",
+    "turn_brake_k_x1000": "S6 at the venue at turn_pct 90: coast after braking fitted as K x rate + rate^2 / Q over 12 turns (15-180 deg both ways), 0 stalls; 6 random turns within rms 0.48 deg; was 44",
+    "turn_brake_q_div": "S6 at the venue at turn_pct 90: coast after braking fitted as K x rate + rate^2 / Q over 12 turns (15-180 deg both ways), 0 stalls; 6 random turns within rms 0.48 deg; was 659520",
+    "reflex_base_mm": "the reflex brakes at this + cruise speed x 0.4 s (set_cal3); 120 since P1",
+    "sonar_offset_mm": "added to every sonar reading (set_cal3). P1 sonar test: +8.4 mm mean error at 15-40 cm with -10, so -18",
+    "trim_pct": "power added to the slower side in straight drives (set_cal3): > 0 left, < 0 right. 0 until the Phase 10A suite (S4) measures it",
+    "turn_boost_pct": "turn powers a stalled turn is retried at, in order, each with a 100 % kick; raised with turn_pct at the venue; was [85, 100]"
+  },
+  "skills": {
+    "sonar_lead_base_mm": 28,
+    "sonar_lead_per_mm": 0.178,
+    "sonar_lead_max_mm": 95,
+    "pivot_behind_front_mm": 120,
+    "target_half_depth_mm": 100,
+    "turn_boost_pct": [
+      95,
+      100
+    ]
+  },
+  "skill_sources": {
+    "sonar_lead_base_mm": "P2, drive_until overshoot past its stop distance once settled, vs travel to the target (sonar at start - stop_cm): 363 mm -> 88, 108 -> 57, 168 -> 42, 296 -> 93; least squares 28 + 0.178 x travel, rms 11 mm; prior-work/evidence/P2/skills.jsonl",
+    "sonar_lead_per_mm": "same fit",
+    "sonar_lead_max_mm": "largest measured overshoot (93 mm) rounded up; also used when the sonar sees nothing yet",
+    "pivot_behind_front_mm": "P2: with 200 mm (leg 37 cm from 30 cm) five consecutive legs kept the box in view but +7..+15 deg right and the gap grew 30 -> 52 cm, i.e. the rover went further round than the chord assumes; PTFE rear tyres slide, so it pivots near the front axle (13 cm behind the front edge): 120 mm",
+    "target_half_depth_mm": "test box 21 x 19 cm (operator); a parcel's depth is unknown in a mission, so 10 cm is assumed",
+    "turn_boost_pct": "turn powers a stalled turn is retried at, in order, each with a 100 % kick (user). The floor decides: after the floor was wiped, 75/85 peaked at 80 deg/s and stalled 38 of 57 mission turns, 85/100 turned 10/10 30 deg and 6/6 90 deg"
+  },
+  "suite": {
+    "date": "2026-11-04",
+    "place": "home",
+    "stages": {
+      "S3": true,
+      "S6": true
+    },
+    "power": null
+  }
+}
