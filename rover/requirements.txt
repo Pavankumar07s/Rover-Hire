@@ -1,0 +1,6 @@
+arduino-router-bridge==0.5.1
+aiohttp==3.11.16
+eth-account==0.14.0
+eth-abi==6.0.0
+ 
+ 
