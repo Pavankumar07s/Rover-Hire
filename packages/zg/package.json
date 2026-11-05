@@ -1,0 +1,36 @@
+{
+  "name": "@0xBs/zg",
+  "version": "1.0.0",
+  "private": true,
+  "description": "0G record pipeline: canonical JSON, record/segment verify, storage, EpisodeLog client, TEE signature check",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "default": "./dist/browser.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "tsc && node --test test/*.test.ts"
+  },
+  "dependencies": {
+    "@0gfoundation/0g-storage-ts-sdk": "1.2.13",
+    "@noble/hashes": "1.8.0",
+    "ethers": "6.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^7.0.2"
+  }
+}
+ 
