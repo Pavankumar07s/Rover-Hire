@@ -1,0 +1,14 @@
+OxBS	KEYWORD1
+OxBSConfig	KEYWORD1
+OxBSStatus	KEYWORD1
+wrap	KEYWORD2
+setPrice	KEYWORD2
+begin	KEYWORD2
+loop	KEYWORD2
+wait	KEYWORD2
+connected	KEYWORD2
+ready	KEYWORD2
+status	KEYWORD2
+statusMessage	KEYWORD2
+setLogOutput	KEYWORD2
+usd	KEYWORD2
