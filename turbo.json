@@ -1,0 +1,73 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "JWT_SECRET",
+    "DATABASE_URL",
+    "FRONTEND_URL",
+    "AUTH_CONTROLLER_URL",
+    "MQTT_URL",
+    "MQTT_USERNAME",
+    "MQTT_PASSWORD",
+    "EMQX_API_URL",
+    "EMQX_API_KEY",
+    "EMQX_API_SECRET",
+    "CDP_API_KEY_ID",
+    "CDP_API_KEY_SECRET",
+    "PUBLIC_URL",
+    "REDIS_URL",
+    "X402_NETWORKS"
+  ],
+  "globalPassThroughEnv": [
+    "PORT",
+    "DEVICE_CONTROLLER_URL",
+    "MAX_PAYMENT_USDC",
+    "ZG_PRIVATE_KEY",
+    "EPISODE_LOG_ADDRESS",
+    "ZG_LOG_URL",
+    "ZG_LOG_TOKEN",
+    "SELLER",
+    "ROVER_URL",
+    "ROVER_LAN_TOKEN",
+    "HEDERA_BUYER_ID",
+    "HEDERA_BUYER_KEY",
+    "HEDERA_ROVER_ID",
+    "HEDERA_ROVER_KEY",
+    "HEDERA_ROVER_B_ID",
+    "HEDERA_ROVER_B_KEY",
+    "HCS_MONEY_TOPIC",
+    "HCS_SPEND_TOPIC",
+    "AGENTKIT_AUDIT_TOPIC",
+    "ERC8004_FROM",
+    "EST_MOVES",
+    "HEDERA_STATION_ID",
+    "HEDERA_STATION_KEY",
+    "HCS_SALES_TOPIC",
+    "STATION_URL",
+    "STATION_LAN_TOKEN",
+    "STATION_SIGNER",
+    "ERC8004_AGENT_ID",
+    "PRICE_READING",
+    "PRICE_MOTION",
+    "PRICE_HISTORY_PER_MIN",
+    "STATION_MAX_PAYMENT_USDC",
+    "STATION_CALL_BUDGET_USDC"
+  ],
+  "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^build"]
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "src/generated/**"]
+    },
+    "start": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build"]
+    },
+    "lint": {}
+  }
+}
+ 

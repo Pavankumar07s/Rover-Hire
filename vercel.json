@@ -1,0 +1,61 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "landing": {
+      "root": "apps/landing",
+      "framework": "nextjs",
+      "installCommand": "npx pnpm@10.28.0 install --frozen-lockfile --filter landing...",
+      "buildCommand": "pnpm -w exec turbo run build --filter=landing"
+    },
+    "web": {
+      "root": "apps/web",
+      "framework": "nextjs",
+      "installCommand": "npx pnpm@10.28.0 install --frozen-lockfile --filter web...",
+      "buildCommand": "pnpm -w exec turbo run build --filter=web"
+    },
+    "docs": {
+      "root": "apps/docs",
+      "framework": "nextjs",
+      "installCommand": "npx pnpm@10.28.0 install --frozen-lockfile --filter docs...",
+      "buildCommand": "pnpm -w exec turbo run build --filter=docs"
+    },
+    "auth-controller": {
+      "root": "services/auth-controller",
+      "framework": "express",
+      "installCommand": "npx pnpm@10.28.0 install --frozen-lockfile --filter @0xbBs/auth-controller...",
+      "buildCommand": "pnpm -w exec turbo run build --filter=@0xbBs/auth-controller"
+    },
+    "device-controller": {
+      "root": "services/device-controller",
+      "framework": "express",
+      "installCommand": "npx pnpm@10.28.0 install --frozen-lockfile --filter @0xbBs/device-controller...",
+      "buildCommand": "pnpm -w exec turbo run build --filter=@0xbBs/device-controller"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/device-controller(/.*)?",
+      "destination": { "service": "device-controller" }
+    },
+    {
+      "source": "/api/auth-controller(/.*)?",
+      "destination": { "service": "auth-controller" }
+    },
+    {
+      "source": "/docs(/.*)?",
+      "destination": { "service": "docs" }
+    },
+    {
+      "source": "/(login|signup|dashboard)(/.*)?",
+      "destination": { "service": "web" }
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": { "service": "web" }
+    },
+    {
+      "source": "/(.*)",
+      "destination": { "service": "landing" }
+    }
+  ]
+}

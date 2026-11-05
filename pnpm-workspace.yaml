@@ -1,0 +1,18 @@
+packages:
+  - "apps/*"
+  - "services/*"
+  - "packages/*"
+  - "contracts/*"
+
+injectWorkspacePackages: true
+disallowWorkspaceCycles: true
+saveWorkspaceProtocol: true
+allowBuilds:
+  '@prisma/engines': false
+  prisma: false
+  unrs-resolver: true
+  sharp: false
+  '@coinbase/x402': false
+minimumReleaseAgeExclude:
+  - e2b@2.38.3
+ 
