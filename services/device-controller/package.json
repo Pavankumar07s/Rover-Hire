@@ -1,0 +1,38 @@
+{
+  "name": "@0xbBs/device-controller",
+  "version": "1.0.0",
+  "description": "Handles devices and their services",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx tsc && node dist/index.js",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@0xBs/db": "workspace:*",
+    "@coinbase/x402": "^2.1.0",
+    "@x402/core": "^2.22.0",
+    "@x402/evm": "^2.22.0",
+    "@x402/express": "^2.22.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "ioredis": "^6.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "mqtt": "^5.15.2",
+    "pg": "^8.23.0",
+    "typescript": "^7.0.2"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^26.2.0"
+  }
+}
