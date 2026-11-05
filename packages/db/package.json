@@ -1,0 +1,23 @@
+{
+  "name": "@0xBs/db",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/generated"
+  ],
+  "scripts": {
+    "generate": "prisma generate",
+    "build": "prisma generate && tsc",
+    "prepare": "prisma generate && tsc"
+  },
+  "type": "module",
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "dotenv": "^17.4.2",
+    "prisma": "^7.9.1",
+    "typescript": "^7.0.2"
+  }
+}

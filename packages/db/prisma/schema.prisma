@@ -1,0 +1,138 @@
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Blockchain a wallet address belongs to (used for x402 payouts).
+enum WalletChain {
+  BASE
+  SOLANA
+}
+
+// Whether calling a service requires an x402 payment.
+enum ServiceType {
+  FREE
+  PAID
+}
+
+model User {
+  id           String @id @default(uuid())
+  email        String @unique
+  name         String
+  passwordHash String
+
+  devices  Device[]
+  services Service[]
+}
+
+model Device {
+  // PUBLIC identity. Safe to share with anyone — this is what agents put in the
+  // callable URL (/quote/device/:id/…) and what public discovery returns.
+  id          String   @id @default(uuid())
+  // PRIVATE connector identity. Used ONLY for the MQTT link between the server
+  // and the physical device (ESP32 / IoT). All MQTT topics are keyed by this
+  // value (d/<connectorId>/cmd|reply|status), so a leaked public `id` can never
+  // be used to impersonate or eavesdrop on the device transport. NEVER expose
+  // this over any public/agent-facing route — treat it like a secret.
+  connectorId String   @unique @default(uuid())
+  title       String?
+  description String?
+  // Only the hash of the API key is stored. The raw key is shown exactly once,
+  // at creation time, and can never be retrieved again.
+  apiKeyHash    String  @unique
+  // A masked, non-secret reference (e.g. "bs_1a2b3c…7f8e") for display.
+  apiKeyPreview String
+
+  // A device is just an identity + API key. Everything callable — price
+  // (serviceType), payout wallet, and access rules — lives on its SERVICEs.
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  services Service[]
+  payments Payment[]
+
+  @@index([userId])
+  @@index([apiKeyHash])
+  @@index([connectorId])
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  title       String?
+  description String?
+  // The input parameters an agent must send when calling this service.
+  // Stored as a JSON array of { name, type, required } objects, e.g.:
+  //   [{ "name": "angle", "type": "number", "required": true }]
+  parameters  Json     @default("[]")
+
+  // ── Per-service payout wallet (devices have no wallet) ──────────────────
+  // The address that receives x402 payouts for this service. On Base it's
+  // 0x + 40 hex; on Solana it's a base58 public key. `walletChain` says which
+  // chain it's on. `recipientWallet` is null until the owner sets one (a paid
+  // service can't be called without it).
+  recipientWallet String?
+  walletChain     WalletChain @default(BASE)
+
+  // Whether calling this service costs money (x402) or is free.
+  serviceType     ServiceType @default(FREE)
+
+  // ── Per-service settings (each service sets its own, no inheritance) ────
+  // Whether calling this service requires a username+password.
+  passwordProtected    Boolean @default(false)
+  // Whether this service is listed in the global public discovery index.
+  // When off, agents must use the device API key to reach it.
+  globallyDiscoverable Boolean @default(true)
+
+  // Optional access credentials, only relevant when password protection is on.
+  // The password is hashed and never retrievable; `accessUsername` is clear.
+  accessUsername String?
+  accessPasswordHash String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  deviceId String
+  device   Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  payments Payment[]
+
+  @@index([deviceId])
+  @@index([userId])
+}
+
+// Settled x402 payments — one row per on-chain transfer. Also used as the
+// idempotency ledger: retrying a paid call with the same Idempotency-Key
+// returns the stored result instead of charging again.
+model Payment {
+  id             String   @id @default(uuid())
+  deviceId       String
+  serviceId      String
+  network        String
+  transaction    String
+  amount         String
+  payer          String?
+  idempotencyKey String?
+  result         Json?
+  createdAt      DateTime @default(now())
+
+  device  Device  @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@unique([transaction])
+  @@unique([deviceId, idempotencyKey])
+  @@index([deviceId])
+  @@index([serviceId])
+}
