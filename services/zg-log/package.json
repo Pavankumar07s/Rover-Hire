@@ -1,0 +1,24 @@
+{
+  "name": "@0xBs/zg-log",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rover decision records → 60 s segments → 0G Storage → EpisodeLog on Galileo",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js"
+  },
+  "dependencies": {
+    "@0xBs/zg": "workspace:*",
+    "dotenv": "^17.4.2",
+    "ethers": "6.13.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.2.0",
+    "typescript": "^7.0.2"
+  }
+}
+ 
