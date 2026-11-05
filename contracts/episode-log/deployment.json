@@ -1,0 +1,14 @@
+{
+  "network": "galileo",
+  "chainId": 16602,
+  "address": "0x44152879e809A63F70d4c529826660a65fd3B3E7",
+  "deployer": "0x68F1c6cd175Ae8373947c2Aca6a8520929a82aEa",
+  "tx": "0xf6ac5614767243e225c1c6ea8241c7070b4cb86d8baf652ad760f7820ae3a037",
+  "block": 64023569,
+  "gasUsed": "350834",
+  "feeWei": "1403336002455838",
+  "seconds": 10.5,
+  "solc": "0.8.28+commit.7893614a.Emscripten.clang",
+  "evmVersion": "cancun",
+  "at": "2026-11-05T17:04:38.812Z"
+}

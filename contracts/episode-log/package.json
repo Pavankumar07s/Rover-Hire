@@ -1,0 +1,17 @@
+{
+  "name": "@0xBs/episode-log",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EpisodeLog contract on 0G Galileo: compile, deploy, live test",
+  "type": "module",
+  "scripts": {
+    "compile": "node compile.ts",
+    "deploy": "node deploy.ts",
+    "test:galileo": "node test-galileo.ts"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "ethers": "6.13.1",
+    "solc": "0.8.28"
+  }
+}
