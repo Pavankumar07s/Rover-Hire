@@ -1,0 +1,31 @@
+{
+  "name": "@0xBs/hedera-shop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rover storefront: A2A quotes and x402 USDC payments on Hedera testnet; moves the rover's money lease",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsc && node --test test/*.test.ts",
+    "start": "node dist/index.js",
+    "setup": "node scripts/setup.ts"
+  },
+  "dependencies": {
+    "@0xBs/hedera": "workspace:*",
+    "@a2a-js/sdk": "1.3.0",
+    "@hiero-ledger/sdk": "2.85.0",
+    "@x402/core": "2.28.0",
+    "@x402/evm": "2.28.0",
+    "@x402/express": "2.28.0",
+    "@x402/hedera": "2.28.0",
+    "@x402/svm": "2.28.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.2.0",
+    "typescript": "^7.0.2"
+  }
+}
+ 
