@@ -1,0 +1,83 @@
+{
+  "at": "2026-11-06T01:17:50.096Z",
+  "registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+  "station": {
+    "account": "0.0.11328271",
+    "evm": "0x8E66477d5C43a524de6E86d2cbE8bEF133a834B7",
+    "hbar": 2.11848965,
+    "sales_topic": "0.0.11328274",
+    "set_agent_uri": {
+      "tx": "0x3d8b70649b8fa23657282feac85ac919d0b17e46940169cd9b2dfae4cd029e01",
+      "hbar": 0.76216518
+    },
+    "agentId": "139",
+    "checks": {
+      "owner_is_wallet": true,
+      "agent_wallet_is_payto": true,
+      "card_payto": true,
+      "card_signer": true,
+      "registrations": true
+    },
+    "card": {
+      "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "name": "Station-A",
+      "description": "A real sensor station (Arduino UNO Q) selling signed temperature, humidity, light and motion readings, paid per reading in USDC with x402 on Hedera, or on the other chains under x402.accepts. Every reading is signed on the station itself; check it against `signer`.",
+      "services": [
+        {
+          "name": "info",
+          "endpoint": "http://localhost:8404/station/info"
+        },
+        {
+          "name": "x402",
+          "endpoint": "http://localhost:8404/station/reading"
+        }
+      ],
+      "x402Support": true,
+      "active": true,
+      "x402": {
+        "network": "hedera:testnet",
+        "asset": "0.0.429274",
+        "payTo": "0.0.11328271",
+        "price": {
+          "reading": "1000",
+          "motion": "500",
+          "history_per_min": "200"
+        },
+        "body": "arduino-uno-q",
+        "accepts": [
+          {
+            "network": "eip155:84532",
+            "asset": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+            "payTo": "0x93Af7Fd05A961132DAbdEd59657652c97333b54f"
+          },
+          {
+            "network": "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1",
+            "asset": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+            "payTo": "Afr4bRMcWpTPemgKGbVqUjBXyQaxuK6u5L32sGWsPVLM"
+          }
+        ]
+      },
+      "skills": [
+        "climate-reading",
+        "light-level",
+        "motion-events"
+      ],
+      "signer": "0x9Aeb19a151E001799926BBA7C9CCAa3E7D4fb702",
+      "units": {
+        "temp": "centi-°C",
+        "rh": "centi-%RH",
+        "pressure": "not available (sensor fault)",
+        "light": "relative % (LDR, not lux): 0 = covered, 100 = a torch against it"
+      },
+      "supportedTrust": [
+        "reputation"
+      ],
+      "registrations": [
+        {
+          "agentId": 139,
+          "agentRegistry": "eip155:296:0x8004A818BFB912233c491871b3d84c89A494BD9e"
+        }
+      ]
+    }
+  }
+}

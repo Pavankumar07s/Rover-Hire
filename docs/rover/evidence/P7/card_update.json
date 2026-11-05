@@ -1,0 +1,82 @@
+{
+  "at": "2026-11-06T02:55:38.580Z",
+  "registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+  "sellers": [
+    {
+      "seller": "a",
+      "account": "0.0.11327287",
+      "evm": "0x9a1d29964Baa8557bc7dd78F3267eEe2C6557335",
+      "hbar": 12.56704432,
+      "set_agent_uri": {
+        "tx": "0xce5e28ca3bda7472a99b2ed14c3b520ebeb9981c10939463eeb4eec761c47568",
+        "gas_used": "577398",
+        "gas_limit": "760483",
+        "hbar": 0.71597352
+      },
+      "agentId": "137",
+      "checks": {
+        "owner_is_wallet": true,
+        "agent_wallet_is_payto": true,
+        "card_payto": true,
+        "registrations": true
+      },
+      "card": {
+        "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+        "name": "Rover-A",
+        "description": "Real 4WD rover (Arduino UNO Q) for hire: inspects a parcel with its camera. Every move is a 0G TEE-verified decision paid per move in USDC with x402 on Hedera; photos are pay-on-delivery. It also takes USDC on the other chains under x402.accepts.",
+        "services": [
+          {
+            "name": "A2A",
+            "endpoint": "http://localhost:8402/.well-known/agent-card.json",
+            "version": "1.0"
+          },
+          {
+            "name": "x402",
+            "endpoint": "http://localhost:8402/missions/{quoteId}/move"
+          }
+        ],
+        "x402Support": true,
+        "active": true,
+        "x402": {
+          "network": "hedera:testnet",
+          "asset": "0.0.429274",
+          "payTo": "0.0.11327287",
+          "price": {
+            "move": "20000",
+            "photo": "80000"
+          },
+          "body": "arduino-uno-q",
+          "accepts": [
+            {
+              "network": "eip155:84532",
+              "asset": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+              "payTo": "0x79C515a8fC8A6E6cf65636dd163772f4C5204ce1"
+            },
+            {
+              "network": "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1",
+              "asset": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+              "payTo": "GaHBtss84gr2xvmY9gVy4XydioVh5nFwU2Rv8cDAih58"
+            }
+          ]
+        },
+        "skills": [
+          "parcel-inspection"
+        ],
+        "supportedTrust": [
+          "reputation"
+        ],
+        "registrations": [
+          {
+            "agentId": 137,
+            "agentRegistry": "eip155:296:0x8004A818BFB912233c491871b3d84c89A494BD9e"
+          }
+        ]
+      }
+    },
+    {
+      "seller": "b",
+      "note": "no account in this checkout (created by the real run)"
+    }
+  ],
+  "erc8004_from": null
+}
