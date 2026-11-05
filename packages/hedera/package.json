@@ -1,0 +1,34 @@
+{
+  "name": "@0xBs/hedera",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hedera testnet helpers: constants, keys, mirror node, hash-chained HCS log, facilitator health",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "default": "./dist/browser.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@hiero-ledger/sdk": "2.85.0",
+    "ethers": "6.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^7.0.2"
+  }
+}
+ 
