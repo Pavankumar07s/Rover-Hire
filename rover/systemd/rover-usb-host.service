@@ -1,0 +1,11 @@
+[Unit]
+Description=0xBs rover: keep the USB-C port in host mode (the camera is on the hub)
+After=local-fs.target
+
+[Service]
+ExecStart=/usr/local/bin/rover-usb-host
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

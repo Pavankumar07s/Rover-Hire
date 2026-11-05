@@ -1,0 +1,16 @@
+[Unit]
+Description=0xBs rover service
+After=network-online.target arduino-router.service
+Wants=network-online.target
+
+[Service]
+User=arduino
+SupplementaryGroups=arduino-router video
+WorkingDirectory=/home/arduino/0xbs-rover
+EnvironmentFile=/home/arduino/0xbs-rover/rover.env
+ExecStart=/home/arduino/0xbs-rover/venv/bin/python -m rover.core.main
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
