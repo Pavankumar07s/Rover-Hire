@@ -1,0 +1,33 @@
+{
+  "name": "simulations",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local simulations: fake ESP32 device + server messages over MQTT (EMQX).",
+  "scripts": {
+    "listen": "tsx listener.ts",
+    "send": "tsx sender.ts",
+    "device": "tsx esp.ts",
+    "agent": "tsx --env-file=.env agent.ts",
+    "agent:v2": "tsx --env-file=.env agent-v2.ts"
+  },
+  "dependencies": {
+    "@metalayer/viem-chains": "^0.2.10",
+    "@solana/kit": "^7.1.0",
+    "@x402/axios": "^2.23.0",
+    "@x402/core": "^2.23.0",
+    "@x402/evm": "^2.23.0",
+    "@x402/fetch": "^2.23.0",
+    "@x402/svm": "^2.23.0",
+    "axios": "^1.19.0",
+    "dotenv": "^17.4.2",
+    "mqtt": "^5.10.1",
+    "typescript": "^7.0.2",
+    "viem": "^2.55.16",
+    "x402-fetch": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2"
+  }
+}
