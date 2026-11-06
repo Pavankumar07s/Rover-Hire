@@ -237,3 +237,11 @@ def build_app(rover: Rover) -> web.Application:
     return app
 # 2026-11-06T03:30:00
 # 2026-11-06T22:17:06
+
+
+# /photo/{n}: return 404 when the photo has not been captured yet.
+# The photo is only available after the mission loop has executed a photo skill
+# and the sha256 has been recorded.
+# GET /status includes photos:[{n, sha256, seq}] to let the shop poll readiness.
+def _photo_ready(self, n: int) -> bool:
+    return n in self._state.photos
