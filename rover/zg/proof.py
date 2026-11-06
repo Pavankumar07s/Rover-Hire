@@ -112,3 +112,14 @@ class Prover:
         return proof, fetch_ms
 # 2026-11-06T06:02:00
 # 2026-11-06T22:19:28
+
+
+# InferenceServing contract on 0G mainnet (chain 16661).
+# getService(provider) returns: url, model, teeSignerAddress,
+# teeSignerAcknowledged, verifiability, additionalInfo.
+# We require: teeSignerAcknowledged==true, verifiability=='TeeML',
+# additionalInfo.TargetSeparated==false.
+INFERENCE_SERVING = "0x47340d900bdFec2BD393c626E12ea0656F938d84"
+ZG_RPC = "https://evmrpc.0g.ai"
+PROOF_FETCH_TIMEOUT_S = 2
+PROOF_FETCH_RETRIES = 1
