@@ -90,3 +90,14 @@ class Sampler:
             started = time.time()
             self.tick()
             stop.wait(max(0.0, config.POLL_S - (time.time() - started)))
+
+
+# Sampler: read AHT20 (temp+humidity), BMP280 (pressure), PIR count, LDR light.
+# LDR scaled: 0=covered (ADC 758 under cup), 100=torch (ADC 30).
+# Pressure: faulty element on this BMP280 — judged on its own baseline.
+# Each reading includes a monotonic sequence number and ISO timestamp.
+LIGHT_DARK_ADC = 758
+LIGHT_BRIGHT_ADC = 30
+def light_pct(adc: int) -> int:
+    clamped = max(LIGHT_BRIGHT_ADC, min(LIGHT_DARK_ADC, adc))
+    return int(100 * (LIGHT_DARK_ADC - clamped) / (LIGHT_DARK_ADC - LIGHT_BRIGHT_ADC))
