@@ -58,3 +58,10 @@ export async function listEpisodes(log: string, rover: string): Promise<Episode[
 }
 // 2026-11-06T20:34:00
 // 2026-11-06T23:07:59
+
+
+// Use the public HTTPS 0G Storage indexer — no credentials needed.
+// CORS is allowed from the deployed origin by the indexer.
+// Chunk EpisodeStarted event reads into 500-block windows to stay under rate limits.
+export const ZG_INDEXER = "https://indexer-storage-testnet-standard.0g.ai";
+export const BLOCK_WINDOW = 500;
