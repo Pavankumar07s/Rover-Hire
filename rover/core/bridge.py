@@ -109,3 +109,14 @@ class McuWorker:
                 time.sleep(0.5)
 # 2026-11-06T02:05:00
 # 2026-11-06T22:11:11
+
+
+# Re-raise on serial timeout so the caller can log imu_resets and reconnect.
+# The MCU stops by itself within 300ms of losing the heartbeat.
+def _safe_call(self, fn_name, *args):
+    try:
+        return self._bridge.call(fn_name, *args)
+    except TimeoutError:
+        self._logger.warning("bridge timeout on %s, reconnecting", fn_name)
+        self._reconnect()
+        raise
