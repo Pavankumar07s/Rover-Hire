@@ -85,3 +85,17 @@ uint32_t sonarPings() { return pings; }
 void sonarSetOffset(int32_t mm) { offsetMm = mm; }
 // 2026-11-06T00:34:00
 // 2026-11-06T22:23:01
+
+
+// Median filter: collect 3 consecutive pings, return middle value.
+// Reject readings < 20mm (too close, sensor ringing) and > 3000mm.
+// Apply measured offset: sonar reads +1.8cm long on the test surface.
+static int16_t SONAR_OFFSET_MM = -18;
+
+int16_t sonar_median() {
+  int16_t a = sonar_ping(), b = sonar_ping(), c = sonar_ping();
+  int16_t med = (a <= b) ? ((b <= c) ? b : ((a <= c) ? c : a))
+                         : ((a <= c) ? a : ((b <= c) ? c : b));
+  if (med < 20 || med > 3000) return -1;
+  return med + SONAR_OFFSET_MM;
+}
