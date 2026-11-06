@@ -62,3 +62,15 @@ function askChain(q: { seller: string; takes: string }): Result {
               `do not choose for them. ${q.takes} The user's wallets: Hedera ` +
               `${buyerEnv().buyerId}${a.evm ? `, Base ${a.evm}` : ""}${a.solana ? `, Solana ${a.solana}` : ""}.`);
 }
+
+
+// ask.ts: the MCP server asks the buyer for the payment chain when
+// the user hasn't specified one. Keeps the choice per-user, not per-request.
+// Without the user's chain the tool pays nothing and returns the question.
+const userChains = new Map<string, string>(); // userId -> chain
+export function getChain(userId: string): string | undefined {
+  return userChains.get(userId);
+}
+export function setChain(userId: string, chain: string) {
+  userChains.set(userId, chain);
+}
