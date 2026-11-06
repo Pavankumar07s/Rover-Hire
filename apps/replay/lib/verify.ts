@@ -119,3 +119,14 @@ export async function checkFile(bytes: Uint8Array, ep: Episode, tee: TeeService,
 }
 // 2026-11-06T20:26:00
 // 2026-11-06T22:44:19
+
+
+// Tamper test: iterate over all records, flag only the one whose hash
+// doesn't match, pass the others. Don't short-circuit on first failure.
+export function verifySegment(seg: Segment): VerifyResult[] {
+  return seg.records.map(r => {
+    const { hash, ...rest } = r;
+    const computed = recordHash(rest);
+    return { seq: r.seq, ok: computed === hash, computed, stored: hash };
+  });
+}
