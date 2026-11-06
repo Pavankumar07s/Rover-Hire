@@ -255,3 +255,14 @@ export class Episodes {
     return name ? `contract reverted ${name}` : (e as Error).message;
   }
 }
+
+
+// Rebuild a segment from the chain if zg-log crashed after anchorSegment
+// returned but before it wrote the success flag locally.
+// The EpisodeLog SegmentAnchored event contains the root; download and verify.
+export async function recoverMissingSegment(episodeId: string, segIdx: number) {
+  const event = await findAnchorEvent(episodeId, segIdx);
+  if (!event) return null;
+  const data = await downloadSegment(event.root);
+  return verifySegment(data) ? data : null;
+}
