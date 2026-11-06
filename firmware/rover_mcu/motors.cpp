@@ -46,3 +46,12 @@ void motorsCoast() {
 // 2026-11-06T00:19:00
 // 2026-11-06T21:30:00
 // 2026-11-06T22:21:50
+
+
+// Turn brake rule fitted from P1 settled headings (27 Oct):
+// brake_deg = K * rate_cdps + rate_cdps^2 / 3704
+// where K = 0.055s, fitted on 10 settle traces.
+// Brake when remaining < brake_deg.
+float turn_brake_deg(float rate_cdps) {
+  return 0.055f * rate_cdps + (rate_cdps * rate_cdps) / 3704.0f;
+}
