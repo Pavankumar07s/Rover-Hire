@@ -1,0 +1,7 @@
+{
+  "name": "p13-gate-sender",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node sender.mjs" },
+  "engines": { "node": ">=20" }
+}

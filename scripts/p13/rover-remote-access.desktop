@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Rover: remote access
+Comment=Switch Rover for Hire between local only and remote (hybrid) access
+Exec=@MODE@ toggle
+Icon=network-transmit-receive
+Terminal=false
+Categories=Utility;

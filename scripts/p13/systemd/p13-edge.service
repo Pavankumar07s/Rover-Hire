@@ -1,0 +1,9 @@
+[Unit]
+Description=Rover for Hire Phase 13: p13-edge, the filter in front of the stable shops (hybrid mode only)
+
+[Service]
+EnvironmentFile=%h/Desktop/ETHGlobal/0xBs/scripts/p13/.env
+ExecStart=/usr/bin/node %h/Desktop/ETHGlobal/0xBs/scripts/p13/edge/edge.mjs
+Restart=on-failure
+RestartSec=3
+# No [Install] section: this unit can never start at boot.

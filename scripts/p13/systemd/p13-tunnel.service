@@ -1,0 +1,13 @@
+[Unit]
+Description=Rover for Hire Phase 13: tunnel to p13-edge, its address sent to the Render service (hybrid mode only)
+Wants=p13-edge.service
+After=p13-edge.service
+
+[Service]
+ExecStart=%h/Desktop/ETHGlobal/0xBs/scripts/p13/bin/cloudflared tunnel --no-autoupdate --url http://127.0.0.1:8412
+ExecStartPost=%h/Desktop/ETHGlobal/0xBs/scripts/p13/register-tunnel.sh
+TimeoutStartSec=90
+Restart=on-failure
+RestartSec=5
+# Wants, not Requires: restarting the edge must not take the tunnel (and its address) down.
+# No [Install] section: this unit can never start at boot.
