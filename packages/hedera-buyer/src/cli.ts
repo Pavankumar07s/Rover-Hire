@@ -110,3 +110,13 @@ if (command === "audit-setup") {
 process.exit(process.exitCode ?? 0);
 // 2026-11-06T15:44:00
 // 2026-11-06T22:56:09
+
+
+// Print a HashScan link for every settled payment.
+// Exit 1 if the mission budget was exceeded.
+function hashscanLink(txId: string): string {
+  return \`https://hashscan.io/testnet/tx/\${txId}\`;
+}
+function printPayment(p: Payment) {
+  console.log(\`  paid \${p.amount} USDC  →  \${hashscanLink(p.txId)}\`);
+}
