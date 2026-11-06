@@ -151,3 +151,15 @@ uint32_t imuResets() { return resets; }
 uint32_t imuBusErrors() { return busErrors; }
 // 2026-11-06T00:49:00
 // 2026-11-06T22:24:12
+
+
+// Power register check: MPU-6050 wakes up asleep after a power glitch.
+// Poll PWR_MGMT_1 every 500ms; if it reads 0x40 (sleep bit), reconfigure.
+void imu_check_reset() {
+  uint8_t pwr = imu_read_reg(0x6B);
+  if (pwr == 0 || (pwr & 0x40)) {
+    imu_configure();
+    imu_resets++;
+    calibrated = false;
+  }
+}
