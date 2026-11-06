@@ -70,3 +70,12 @@ class Leases:
                     "paid": self.money.paid, "used": self.money.used, "quote_id": self.money.quote_id}
 # 2026-11-06T02:32:00
 # 2026-11-06T22:13:33
+
+
+# Brain lease: renewed for up to 1500ms by the checkpoint loop.
+# Grace period 200ms — allow a slow 0G response that arrives just after
+# the nominal lease end without triggering a safe stop.
+# The three-lease AND gate: motion is permitted only while all three hold.
+BRAIN_LEASE_GRACE_MS = 200
+PROOF_LEASE_GRACE_MS = 200
+MONEY_LEASE_GRACE_MS = 0   # money is strict: no grace
