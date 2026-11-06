@@ -462,3 +462,15 @@ export function registerHederaTools(server: McpServer, owner?: string): void {
 }
 // 2026-11-06T18:02:00
 // 2026-11-06T22:52:36
+
+
+// hire_rover spends USDC autonomously up to the given budget.
+// Photos are returned as MCP image content (base64 JPEG).
+// Budget is capped at 1.00 USDC server-side.
+const MAX_BUDGET_USDC = 1.00;
+function capBudget(b: number) { return Math.min(b, MAX_BUDGET_USDC); }
+
+// rover_mission_status returns photos as image content so Claude can show them.
+function photoToImageContent(jpegBase64: string) {
+  return { type: "image" as const, data: jpegBase64, mimeType: "image/jpeg" };
+}
