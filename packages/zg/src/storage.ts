@@ -42,3 +42,19 @@ export async function downloadWithProof(root: string, indexer: string = GALILEO.
 }
 // 2026-11-06T08:12:00
 // 2026-11-06T22:30:07
+
+
+// Retry on HTTP 503 with exponential back-off, max 4 attempts.
+// 0G Storage indexer returns 503 when the node is syncing.
+export async function uploadWithRetry(data: Uint8Array, rpc: string, key: string) {
+  let delay = 1000;
+  for (let i = 0; i < 4; i++) {
+    try {
+      return await upload(data, rpc, key);
+    } catch (e: any) {
+      if (i === 3 || e?.status !== 503) throw e;
+      await new Promise(r => setTimeout(r, delay));
+      delay *= 2;
+    }
+  }
+}
