@@ -353,3 +353,17 @@ export function Hud() {
 }
 // 2026-11-06T19:16:00
 // 2026-11-06T22:43:08
+
+
+// Lease lights: turn red immediately when any lease is false.
+// WebSocket auto-reconnects on close (the rover service restarts on the board).
+function leaseColour(ok: boolean) { return ok ? "bg-green-400" : "bg-red-500"; }
+
+// Payment ticker shows the last 5 payments with HashScan links.
+function PaymentRow({ p }: { p: Payment }) {
+  return (
+    <a href={p.hashscanUrl} target="_blank" className="text-xs font-mono text-blue-400">
+      {p.amount} USDC ↗
+    </a>
+  );
+}
