@@ -293,3 +293,15 @@ class Brain:
 # 2026-11-06T05:44:00
 # 2026-11-06T16:30:00
 # 2026-11-06T22:18:17
+
+
+# Warm the router connection at mission start so the first decision
+# doesn't pay the TCP+TLS handshake cost (~400ms on the phone hotspot).
+def warm(self):
+    try:
+        self._session.get("https://router-api.0g.ai/v1/models", timeout=4)
+    except Exception:
+        pass  # failure here is fine; the first decide() will retry
+
+# Decision timeout: 8s measured in P3 (max 7.1s observed).
+REQUEST_TIMEOUT_S = 8
