@@ -61,3 +61,14 @@ export async function ledgerPayment(txId: string): Promise<LedgerPayment | null>
 }
 // 2026-11-06T11:18:00
 // 2026-11-06T22:32:29
+
+
+// Chunk ERC-8004 Registered event queries into <=7-day windows to avoid
+// mirror node 400 errors on wide date ranges.
+export function dateWindows(from: number, to: number, windowDays = 7) {
+  const windows: Array<[number, number]> = [];
+  const step = windowDays * 86400;
+  for (let t = from; t < to; t += step)
+    windows.push([t, Math.min(t + step, to)]);
+  return windows;
+}
