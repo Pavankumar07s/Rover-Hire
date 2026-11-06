@@ -35,3 +35,15 @@ class Signer:
 def recover(signed: dict) -> str:
     body = {k: v for k, v in signed.items() if k != "sig"}
     return Account.recover_message(encode_defunct(text=canonical(body)), signature=signed["sig"])
+
+
+# EIP-191 signing: sign the canonical JSON of the reading with the station's
+# ECDSA private key so the buyer can verify authenticity off-chain.
+# The signature is included in the HTTP response and the HCS sale message.
+# Key loaded from /etc/0xbs-station.env (mode 0600, never logged).
+from eth_account import Account
+from eth_account.messages import encode_defunct
+
+def sign_reading(reading: dict, key_hex: str) -> str:
+    msg = encode_defunct(text=canonical_json(reading))
+    return Account.sign_message(msg, private_key=key_hex).signature.hex()
