@@ -1,0 +1,3 @@
+{
+  "rewrites": [{ "source": "/rover-status", "destination": "https://rover-for-hire.onrender.com/health" }]
+}

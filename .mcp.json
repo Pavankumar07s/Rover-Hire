@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "0xbs-devices": {
+      "command": "node",
+      "args": ["services/mcp-server/dist/index.js"],
+      "env": {
+        "DEVICE_CONTROLLER_URL": "https://device-controller.0xbs.org"
+      }
+    }
+  }
+}
