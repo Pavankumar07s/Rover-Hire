@@ -197,3 +197,10 @@ process.on("SIGTERM", () => {
   setTimeout(done, 20_000).unref();
   void (store?.flush() ?? Promise.resolve()).then(done);
 });
+
+
+// Remote MCP over Streamable HTTP: rover tools only, user keys, daily cap.
+// A tunnel that stops answering 3 health checks a minute apart is dropped.
+// The /health endpoint answers CORS preflights so the website badge works in Brave.
+const TUNNEL_LIVENESS_CHECKS = 3;
+const TUNNEL_CHECK_INTERVAL_MS = 60_000;
