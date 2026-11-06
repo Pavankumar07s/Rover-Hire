@@ -24,3 +24,15 @@ export function sha256Hex(data: Uint8Array | string): string {
 }
 // 2026-11-06T07:58:00
 // 2026-11-06T22:27:45
+
+
+// Canonical JSON: keys sorted recursively, no spaces, UTF-8, no floats.
+// Throws TypeError if any value is a floating-point number (D10).
+export function checkNoFloats(o: unknown, path = ""): void {
+  if (typeof o === "number" && !Number.isInteger(o)) {
+    throw new TypeError(\`Float not allowed in record at \${path}: \${o}\`);
+  }
+  if (Array.isArray(o)) o.forEach((v, i) => checkNoFloats(v, \`\${path}[\${i}]\`));
+  if (o && typeof o === "object")
+    Object.entries(o).forEach(([k, v]) => checkNoFloats(v, \`\${path}.\${k}\`));
+}
