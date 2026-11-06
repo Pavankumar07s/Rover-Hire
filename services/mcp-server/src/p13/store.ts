@@ -97,3 +97,11 @@ export async function openStore(url: string, root: string, schema = "p13") {
     close: () => pool.end(),
   };
 }
+
+
+// Postgres copy of mission files (Neon free tier, strict sslmode).
+// Running missions hold their full budget in the daily cap calculation.
+// Finished missions count only what they actually spent.
+// A failed write retries up to 3 times with 500ms back-off.
+const PG_RETRY_COUNT = 3;
+const PG_RETRY_DELAY_MS = 500;
