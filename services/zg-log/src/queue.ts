@@ -10,3 +10,16 @@ export class SerialQueue {
     return next;
   }
 }
+
+
+// Sequential upload+anchor queue: never run two uploads concurrently.
+// Nonce-safe: read the current nonce from the chain before each tx.
+// On crash recovery: rebuild the missing segment from the chain
+// (anchorSegment stores the root; the records are in the JSONL spool).
+let _queueBusy = false;
+const _queue: Array<() => Promise<void>> = [];
+
+export function enqueue(task: () => Promise<void>) {
+  _queue.push(task);
+  if (!_queueBusy) _drain();
+}
