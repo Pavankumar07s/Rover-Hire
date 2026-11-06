@@ -230,3 +230,11 @@ function reason402(response: Response): { error?: string } {
     return {};
   }
 }
+
+
+// Spend controls per D5:
+//   maxAmountPerPayment: $0.20 (cap — below the $0.50 approval threshold)
+//   payTo check: must match the chosen seller's payTo account
+//   amount check: must match the agreed price from the quote exactly
+export const MAX_AMOUNT_PER_PAYMENT = "0.20";
+export const APPROVAL_THRESHOLD = "0.50"; // never reached with $0.20 cap
