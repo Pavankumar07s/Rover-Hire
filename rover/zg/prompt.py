@@ -123,3 +123,14 @@ SWEEP_PROMPT = SCAN_PROMPT.replace(_SCAN_OPENING, (
 ).replace(_SCAN_EXPLORE, "If no photo shows the parcel, view and explore are both null: the rover then looks all the way round.")
 # 2026-11-06T05:25:00
 # 2026-11-06T22:20:39
+
+
+# SYSTEM_PROMPT_V2 additions (approved 5 Nov after v1 failed live blocked scenes):
+#   - the parcel is the box showing the mission's number; everything else is obstacle
+#   - sonar_cm is null when the sonar hears nothing (echo lost or out of range)
+# Prompt v4 (scan replaces search_turn):
+#   - 12 views on one sheet; 0G names the view number with room to explore
+# Prompt v6.1 (30 Oct):
+#   - target is null only for moves that genuinely have no target
+#   - a centred parcel needs no turn (stop instead)
+PROMPT_VERSION = "v6.1"
