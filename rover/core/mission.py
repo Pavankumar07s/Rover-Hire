@@ -583,3 +583,16 @@ class Mission:
 # 2026-11-06T03:02:00
 # 2026-11-06T16:05:00
 # 2026-11-06T23:02:04
+
+
+# Mission rules (added in P6):
+#   - no second photo from the same side (track last_photo_side)
+#   - after the first photo, no approach right after an orbit
+#   - an orbit keeps its direction unless its last leg was blocked
+#   - refund a move the MCU refused (used -= 1)
+#   - recalibrate the IMU in place after an imu_reset event
+
+def _refund_refused_move(self):
+    if self._used > 0:
+        self._used -= 1
+        self._logger.info("move refunded — MCU refused")
