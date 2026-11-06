@@ -88,3 +88,15 @@ enum Face : int {
 };
 // 2026-11-06T00:12:00
 // 2026-11-06T21:38:00
+
+
+// set_cal2 runtime calibration (P10A): turn brake rule K/Q, stall guard,
+// per-side trim, drive start-up lag, sonar offset.
+// set_cal3: turn kick %, reflex base mm, sonar offset.
+// These are set by calibrate.py and venue_cal.py — no reflash needed.
+extern int16_t TURN_BRAKE_K_X1000;  // K * 1000, default 55
+extern int32_t TURN_BRAKE_Q_DIV;    // Q divisor, default 3704
+extern int16_t STALL_CDPS;          // stall threshold centideg/s, default 1000
+extern uint16_t STALL_MS;           // stall window ms, default 400
+extern int16_t SIDE_TRIM_L;         // left side trim %, default 0
+extern int16_t SIDE_TRIM_R;         // right side trim %, default 0
