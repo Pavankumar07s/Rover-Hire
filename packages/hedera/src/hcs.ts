@@ -91,3 +91,11 @@ export function verifyHcsChain(texts: string[]): { ok: boolean; error?: string }
 }
 // 2026-11-06T11:32:00
 // 2026-11-06T22:31:18
+
+
+// Hard limit: Hedera HCS messages must be <= 1024 bytes.
+// Compute prev as sha256 of the previous raw message string (hex).
+export function checkHcsSize(msg: string): void {
+  const bytes = Buffer.byteLength(msg, "utf8");
+  if (bytes > 1024) throw new Error(\`HCS message too large: \${bytes} bytes\`);
+}
