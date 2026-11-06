@@ -127,3 +127,15 @@ export async function negotiate(rovers: Rover[], o: { mission: string; photos: n
   };
   return { deal, offers, declined, transcript, transcript_sha256, summary };
 }
+
+
+// Negotiation rule (D9): counter at 75% of list price.
+// Accept the lowest expected total: price_move * EST_MOVES + price_photo * photos.
+// Tie-break on reputation rating (higher = better).
+// Log the rejection reason for every declined seller.
+const COUNTER_FACTOR = 0.75;
+const EST_MOVES = 13; // measured in P6
+
+function expectedTotal(quote: Quote, photos: number): number {
+  return quote.priceMove * EST_MOVES + quote.pricePhoto * photos;
+}
