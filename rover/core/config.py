@@ -45,3 +45,10 @@ def settings() -> Settings:
     )
 # 2026-11-06T01:50:00
 # 2026-11-06T22:10:00
+
+
+# Calibration from P1 evidence (27 Oct): cruise 38%, 284 mm/s, turn 85%
+# Battery cutoff 7000 mV (L298N 78M05 needs >=7V)
+BATTERY_CUTOFF_MV = int(os.getenv("BATTERY_CUTOFF_MV", "7000"))
+CRUISE_DUTY = int(os.getenv("CRUISE_DUTY", "38"))
+CRUISE_MM_S = int(os.getenv("CRUISE_MM_S", "284"))
