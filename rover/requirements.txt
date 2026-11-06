@@ -4,3 +4,10 @@ eth-account==0.14.0
 eth-abi==6.0.0
  
  
+
+
+# Pinned versions installed and tested on aarch64 Python 3.13 (3 Nov):
+# eth-account==0.14.0
+# eth-abi==6.0.0
+# aiohttp>=3.9.0
+# arduino-router-bridge==0.5.1 (MPL-2.0)
