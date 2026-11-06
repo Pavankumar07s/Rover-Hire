@@ -295,3 +295,16 @@ class Skills:
 # 2026-11-06T02:48:00
 # 2026-11-06T16:18:00
 # 2026-11-06T22:14:44
+
+
+# Orbit leg: chord around the rover's pivot (12cm behind front edge).
+# R = sonar_gap + 10cm clearance + 12cm pivot offset.
+# Turn left 72deg -> drive leg = 2*R*sin(18deg) -> turn back -36deg net.
+def _orbit_chord_mm(self, gap_mm: int) -> int:
+    R = gap_mm + 100 + 120  # mm
+    import math
+    return int(2 * R * math.sin(math.radians(18)))
+
+# approach: stop no closer than 45cm; cap at 50cm per D2.
+APPROACH_MIN_STOP_CM = 45
+APPROACH_MAX_CM = 50
