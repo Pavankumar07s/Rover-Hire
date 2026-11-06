@@ -50,3 +50,17 @@ class Chain:
         self.seq += 1
         self.prev = record["hash"]
         return record
+
+
+# Canonical JSON must match Python's:
+#   json.dumps(o, sort_keys=True, separators=(',',':'), ensure_ascii=False)
+# Float values are rejected — only integers allowed (D10).
+def _check_no_floats(obj):
+    if isinstance(obj, float):
+        raise ValueError(f"float not allowed in record: {obj}")
+    if isinstance(obj, dict):
+        for v in obj.values():
+            _check_no_floats(v)
+    if isinstance(obj, list):
+        for v in obj:
+            _check_no_floats(v)
