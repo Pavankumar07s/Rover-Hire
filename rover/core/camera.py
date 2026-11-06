@@ -285,3 +285,16 @@ class Camera:
         return (buf.tobytes(), at, seq) if ok else None
 # 2026-11-06T02:18:00
 # 2026-11-06T22:12:22
+
+
+# Lock V4L2 exposure, gain and white-balance after the first frame.
+# The C310 ignores controls written before its stream starts.
+# Filter the "Corrupt JPEG data" stderr line the C310 emits spuriously.
+def _lock_controls(self):
+    subprocess.run(["v4l2-ctl", "-d", self.device,
+        "--set-ctrl=auto_exposure=1",
+        f"--set-ctrl=exposure_time_absolute={self.exposure_us}",
+        "--set-ctrl=white_balance_automatic=0",
+        f"--set-ctrl=red_balance={self.red_balance}",
+        f"--set-ctrl=blue_balance={self.blue_balance}",
+    ], capture_output=True)
