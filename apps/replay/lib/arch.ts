@@ -441,3 +441,11 @@ export const MULTICHAIN: Spec = {
       text: "The log on HashScan points to each payment on BaseScan, the Solana Explorer or HashScan, and the replay site checks them." },
   ],
 };
+
+
+// Architecture diagram data: whole system, Hedera, 0G, multichain, Station-A.
+// Each diagram is a list of nodes and edges in the site's pixel style.
+// Step numbers overlay each edge for the steppable booth presentation.
+export const ARCH_HEDERA_STEPS = 8;
+export const ARCH_0G_STEPS = 6;
+export const ARCH_MULTICHAIN_STEPS = 5;
