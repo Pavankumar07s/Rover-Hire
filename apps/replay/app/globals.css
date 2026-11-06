@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* Type: Geist Pixel for headings from 20px, Silkscreen (solid pixels) for small labels, Geist Mono for text, Doto for big numbers.
+   Black bands (nav, hero, footer) and cream paper for content. Orange marks only what can be clicked; on paper it
+   is a fill under black text (orange text is 2.3:1 there). Good/bad are reserved for verification and always come
+   with an icon. Step kinds: blue move, magenta photo (validated on paper and on black), grey pause. */
+@theme {
+  --color-paper: #ede6d6;
+  --color-paper-2: #e4dbc8;
+  --color-rule: #cbc1ad;
+  --color-ink: #141414;
+  --color-ink-2: #5f5849;
+  --color-night: #0a0a0a;
+  --color-night-2: #151515;
+  --color-night-rule: #2b2b2b;
+  --color-chalk: #f2ede3;
+  --color-chalk-2: #a39d90;
+  --color-accent: #ff6a13;
+  --color-good: #087a08;
+  --color-good-night: #2fbf4f;
+  --color-bad: #c93636;
+  --color-move: #2a78d6;
+  --color-photo: #d55181;
+  --color-pause: #8a8475;
+  --color-sun: #e8c547; /* Station-A's sensor readings, on night only */
+  --font-pixel: var(--nf-pixel), ui-monospace, monospace;
+  --font-mono: var(--nf-mono), ui-monospace, monospace;
+  --font-dots: var(--nf-dots), ui-monospace, monospace;
+  --font-label: var(--nf-label), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] > summary .chevron {
+  transform: rotate(180deg);
+}
+
+/* The loader: a wave runs across a dot grid. */
+.px-wave {
+  animation: px-wave 1.2s steps(1) infinite;
+  animation-delay: var(--d);
+  opacity: 0.15;
+}
+
+@keyframes px-wave {
+  0%,
+  30% {
+    opacity: 1;
+  }
+  31%,
+  100% {
+    opacity: 0.15;
+  }
+}
+
+.marquee-track {
+  animation: marquee 45s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .px-wave,
+  .marquee-track {
+    animation: none !important;
+  }
+}
