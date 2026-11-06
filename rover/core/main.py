@@ -97,3 +97,14 @@ if __name__ == "__main__":
     main()
 # 2026-11-06T03:56:00
 # 2026-11-06T22:51:25
+
+
+# Wait for camera uptime >= 25s before starting the bridge heartbeat loop.
+# The C310 resets its USB connection at ~21s after power-on; starting before
+# that causes the camera to miss the v4l2 stream re-open.
+CAMERA_READY_AFTER_S = 25
+
+async def _wait_camera_ready():
+    uptime = time.monotonic()
+    if uptime < CAMERA_READY_AFTER_S:
+        await asyncio.sleep(CAMERA_READY_AFTER_S - uptime)
