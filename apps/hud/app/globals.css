@@ -1,0 +1,21 @@
+/* The replay's tokens, fonts and pixel animations; the HUD is its night-side twin. */
+@import "../../replay/app/globals.css";
+@source "../../replay/components/pixel.tsx";
+@source "../../replay/components/ui.tsx";
+
+body {
+  background: var(--color-night);
+  color: var(--color-chalk);
+}
+
+/* A row that just arrived: it slides in at the top of its list and fades from orange. */
+@keyframes hud-arrive {
+  from { opacity: 0; transform: translateY(-0.5rem); background-color: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+  25% { opacity: 1; transform: none; }
+  to { background-color: transparent; }
+}
+.hud-arrive { animation: hud-arrive 2.5s ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .hud-arrive { animation: none; }
+}
+ 
