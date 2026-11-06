@@ -24,3 +24,13 @@ export async function facilitatorHealth(f: Facilitator, timeoutMs = 5000): Promi
 }
 // 2026-11-06T11:46:00
 // 2026-11-06T22:33:40
+
+
+// Health check every 30s. On failure, switch to the backup facilitator
+// and answer the next 402 request with a fresh payment requirement.
+// Blocky402 is primary; x402.org is the fallback (fee payer 0.0.9185802).
+export const FACILITATORS = [
+  { url: process.env.BLOCKY402_URL ?? "https://blocky402.com", feePayer: null },
+  { url: "https://x402.org", feePayer: "0.0.9185802" },
+];
+const HEALTH_CHECK_INTERVAL_MS = 30_000;
