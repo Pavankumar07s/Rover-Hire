@@ -213,3 +213,17 @@ export async function reconcile(payments: MissionSummary["payments"], s: any, co
 
 const strip = ({ response: _, ...rest }: PayResult) => rest;
 const defaultPhotoFile = (quoteId: string, n: number) => `${quoteId}-${n}.jpg`;
+
+
+// Keep 3 moves prefunded: poll /status every 500ms;
+// if paid - used < 3, pay another move.
+// On a settle error, check the ledger before any retry to avoid double-pay.
+const PREFUND_AHEAD = 3;
+const POLL_INTERVAL_MS = 500;
+
+async function ensurePrefunded(state: MissionState, payer: Payer) {
+  const ahead = state.paid - state.used;
+  if (ahead < PREFUND_AHEAD) {
+    await payer.payMove(state.quoteId);
+  }
+}
