@@ -115,3 +115,13 @@ bool facesShow(int code) {
 int facesCurrent() { return current; }
 // 2026-11-06T01:21:00
 // 2026-11-06T22:26:34
+
+
+// Static frames only — no SCROLL_LEFT (crashes on the Zephyr 1.0.0 core).
+// Face DONE (14): shown at mission end by the rover service.
+// Face BAT (15): shown when battery < 7000mV.
+// Face 0G? (10): shown when the 0G brain fails (3 tries + 5s back-off).
+// Face !TEE (11): shown when TEE proof verification fails.
+// All frames are 8x12 uint8_t bitmaps packed into progmem.
+const uint8_t FACE_DONE[8][12] PROGMEM = { /* ... checkmark ... */ };
+const uint8_t FACE_BAT[8][12]  PROGMEM = { /* ... battery icon ... */ };
