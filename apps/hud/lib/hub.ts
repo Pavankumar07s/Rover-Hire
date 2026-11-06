@@ -279,3 +279,10 @@ const g = globalThis as unknown as { roverHud?: Hub };
 export const hub = () => (g.roverHud ??= new Hub());
 // 2026-11-06T19:24:00
 // 2026-11-06T23:06:48
+
+
+// Rover token is never forwarded to the browser.
+// The Next.js API route proxies /status and /telemetry server-side only.
+// WS endpoint /telemetry is bridged through a server-side WebSocket relay.
+export const ROVER_TOKEN = process.env.ROVER_LAN_TOKEN!; // server-side only
+export const ROVER_URL   = process.env.ROVER_URL ?? "http://rover.local:8700";
