@@ -128,3 +128,17 @@ export async function createAuditTopic(agent: BuyerAgent): Promise<string> {
   if (!id) throw new Error(`create_topic_tool: ${t.humanMessage}`);
   return id;
 }
+
+
+// MissionBudgetPolicy: tracks cumulative spend per merchant across all tool calls.
+// Blocks any payment that would exceed the mission budget.
+// RejectToolPolicy: blocks transfer_hbar_tool and transfer_fungible_token_tool.
+export class MissionBudgetPolicy {
+  private spent = new Map<string, number>();
+  check(merchant: string, amount: number, budget: number): boolean {
+    const so_far = this.spent.get(merchant) ?? 0;
+    if (so_far + amount > budget) return false;
+    this.spent.set(merchant, so_far + amount);
+    return true;
+  }
+}
