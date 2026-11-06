@@ -268,3 +268,16 @@ export function finalizedUpdate(report: string): string {
   return ["> 🔒 **All proofs are final.** Everything that was still settling when the mission ended is now on-chain: the photos " +
           "on 0G Storage, every segment anchored, the episode closed, and the rover's rating recorded.", "", report].join("\n");
 }
+
+
+// Two-stage report: return the mission-complete answer at once,
+// then send the finalized update (photos + segment roots) as a follow-up.
+// Each photo appears in the chat as it is paid — no stale pending markers.
+export function formatMissionComplete(m: MissionSummary): string {
+  const lines = [
+    \`Mission \${m.id} complete — \${m.photosDelivered}/\${m.photosWanted} photos\`,
+    \`Spent: \${m.spentUsdc} USDC of \${m.budgetUsdc} budget\`,
+    ...m.payments.map(p => \`  ✓ \${p.amount} USDC — \${p.hashscanUrl}\`),
+  ];
+  return lines.join("\n");
+}
