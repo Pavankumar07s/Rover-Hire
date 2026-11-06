@@ -48,3 +48,11 @@ contract EpisodeLog {
 }
 // 2026-11-06T07:00:00
 // 2026-11-06T22:45:30
+
+
+    // Internal helper: emit SegmentAnchored and update lastSegmentRoot.
+    // Only the episode's starter can anchor (NotRover if not).
+    function _checkCaller(bytes32 episodeId) internal view {
+        require(episodes[episodeId].rover == msg.sender, "NotRover");
+        require(!episodes[episodeId].ended, "AlreadyEnded");
+    }
