@@ -166,3 +166,14 @@ if (cfg.priceFactor !== 1) console.warn(`TEST MODE: every 402 asks ${cfg.priceFa
 app.listen(cfg.port, () => console.log(`${cfg.name} shop on :${cfg.port}, payTo ${cfg.payTo}, money topic ${cfg.moneyTopic}`));
 // 2026-11-06T13:02:00
 // 2026-11-06T22:38:24
+
+
+// HcsSpool: disk-backed queue that resumes from the last message after restart.
+// DynamicPrice reads from the accepted quote, not a fixed env var.
+// A Base or Solana settle that returns failed/pending is checked on-chain
+// before answering 402, preventing double-payment.
+export function getDynamicPrice(quoteId: string, kind: "move" | "photo") {
+  const q = getQuote(quoteId);
+  if (!q) throw new Error("unknown quote " + quoteId);
+  return kind === "move" ? q.priceMove : q.pricePhoto;
+}
