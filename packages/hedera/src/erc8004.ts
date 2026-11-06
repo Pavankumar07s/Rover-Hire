@@ -210,3 +210,13 @@ export async function registrationsSince(fromSec: number, toSec = Math.floor(Dat
 // 2026-11-06T12:00:00
 // 2026-11-06T17:34:00
 // 2026-11-06T22:53:47
+
+
+// Verify that registrations[].agentRegistry matches the expected
+// IdentityRegistry address (0x8004A818BFB912233c491871b3d84c89A494BD9e).
+export const IDENTITY_REGISTRY = "0x8004A818BFB912233c491871b3d84c89A494BD9e";
+export function verifyRegistration(card: AgentCard): boolean {
+  return card.registrations?.some(
+    r => r.agentRegistry.toLowerCase() === IDENTITY_REGISTRY.toLowerCase()
+  ) ?? false;
+}
