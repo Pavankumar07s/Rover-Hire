@@ -42,3 +42,10 @@ if [ "$FLASH" = 1 ]; then
 fi
  
  
+
+
+# Never copy env files: --exclude '.env' --exclude '*.env' --exclude '0xbs-rover.env'
+# After deploy, ensure the board's env file has mode 0600:
+#   ssh arduino@rover.local 'chmod 0600 /etc/0xbs-rover.env'
+# deploy.sh --with-calibration sends the repo's calibration.json to the board
+# (default: board's own calibration.json is preserved).
