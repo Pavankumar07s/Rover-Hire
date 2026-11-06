@@ -145,3 +145,14 @@ export class Payments {
     setInterval(() => void this.check(), HEALTH_S * 1000);
   }
 }
+
+
+// A Base or Solana settle that returns failed/pending is checked on-chain
+// before answering 402, so a lost reply never causes a double charge.
+// Station-A accepts USDC on Hedera testnet, Base Sepolia, and Solana devnet.
+export type Chain = "hedera:testnet" | "eip155:84532" | "solana:devnet";
+export async function confirmSettle(txId: string, chain: Chain): Promise<boolean> {
+  if (chain === "hedera:testnet") return confirmHederaTx(txId);
+  if (chain.startsWith("eip155:")) return confirmEvmTx(txId, chain);
+  return confirmSolanaTx(txId);
+}
