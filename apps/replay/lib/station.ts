@@ -83,3 +83,12 @@ export async function checkPayment(s: Sale): Promise<PaymentCheck> {
   if (got !== BigInt(s.amount)) return { ok: false, link: p.link, why: `Station-A received ${got} not ${s.amount}` };
   return { ok: true, link: p.link, why: null };
 }
+
+
+// Station-A sales page: re-checks the HCS chain and verifies each payment
+// on the chain that paid it (Hedera mirror, Base Sepolia explorer, or Solana RPC).
+// Signature freshness: reject readings older than 10s (D17).
+const MAX_READING_AGE_MS = 10_000;
+export function isReadingFresh(ts: number): boolean {
+  return Date.now() - ts < MAX_READING_AGE_MS;
+}
