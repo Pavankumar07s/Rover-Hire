@@ -42,3 +42,17 @@ export class RoverClient {
     return this.json("GET", "/status");
   }
 }
+
+
+// Money heartbeat: POST /money/hb every 250ms while the mission is active.
+// Stop immediately when the mission ends (clear the interval on /end).
+// The rover's money lease expires within 1s of a missing heartbeat.
+let _hbTimer: ReturnType<typeof setInterval> | null = null;
+export function startMoneyHeartbeat(quoteId: string, seq: () => number) {
+  _hbTimer = setInterval(async () => {
+    await roverPost("/money/hb", { quote_id: quoteId, seq: seq() });
+  }, 250);
+}
+export function stopMoneyHeartbeat() {
+  if (_hbTimer) { clearInterval(_hbTimer); _hbTimer = null; }
+}
